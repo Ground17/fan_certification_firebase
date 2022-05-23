@@ -11,18 +11,18 @@ firebase functions and hosting for fan_certification
 
 - manageFollow
     - input: platform(*String*, default value: "0"), account(*String*, ChannelID for YouTube), method(*String*, "add", "update" or "delete"), title(*String?*, channel name), profileURL(*String?*, thumbnail url)
-    - function: 
-        - add
+    - function:  
+        1) add  
             adds celebrities to 'celeb' in my account. length of 'celeb' cannot be more than three and values of 'celeb' cannot be duplicated.
 
-        - update
+        2) update  
             updates title and url of celeb. Currently, there are Title and url for each celeb, but it will be integrated into one later. See to-do list.
 
-        - delete (doesn't need title and url)
+        3) delete (doesn't need title and url)  
             deletes celebrities in 'celeb' in user's account and decrease related celeb's follow and likes
 
-    **To-do list**
-    [ ] **(important)** In the case of title and url, it is not saved for each celebrity in each account, but it is saved in a celebrity on "YouTube" or "Instagram" collection to eliminate duplication.
+**To-do list**  
+- [ ] **(important)** In the case of title and url, it is not saved for each celebrity in each account, but it is saved in a celebrity on "YouTube" or "Instagram" collection to eliminate duplication.
 
 - initUser
     - input: None
