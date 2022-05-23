@@ -2,7 +2,8 @@
 firebase functions and hosting for fan_certification
 
 ## 0. testing on local by running emulator
-[Document](https://firebase.google.com/docs/functions/local-emulator)
+[Run local emulator](https://firebase.google.com/docs/functions/local-emulator)  
+[Call function in kotlin](https://firebase.google.com/docs/functions/callable#kotlin+ktx)
 
 ## 1-1. functions
 - addHeart
