@@ -17,13 +17,10 @@ firebase functions and hosting for fan_certification
             adds celebrities to 'celeb' in my account. length of 'celeb' cannot be more than three and values of 'celeb' cannot be duplicated.
 
         2) update  
-            updates title and url of celeb. Currently, there are Title and url for each celeb, but it will be integrated into one later. See to-do list.
+            updates title and url of celeb if celeb changes name or profile photo.
 
         3) delete (doesn't need title and url)  
             deletes celebrities in 'celeb' in user's account and decrease related celeb's follow and likes
-
-**To-do list**  
-- [ ] **(important)** In the case of title and url, it is not saved for each celebrity in each account, but it is saved in a celebrity on "YouTube" or "Instagram" collection to eliminate duplication.
 
 - initUser
     - input: None
@@ -39,4 +36,4 @@ firebase functions and hosting for fan_certification
 - case error
     - {status: 400, message: "{message of error}"}
 
-## 2. hosting (Getting ready...)
+## 2. hosting (Getting ready..., page to introduce our apps)

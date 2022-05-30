@@ -151,7 +151,7 @@ exports.manageFollow = functions.https.onCall(async (data, context) => {
                         });
 
                         if (!YouTubeDoc.exists) {
-                            t.set(YouTubeRef, {count: 0, follow: 1});
+                            t.set(YouTubeRef, {count: 0, follow: 1, title: title, url: profileURL});
                         } else {
                             t.update(YouTubeRef, {follow: admin.firestore.FieldValue.increment(1)});
                         }
@@ -175,15 +175,32 @@ exports.manageFollow = functions.https.onCall(async (data, context) => {
         } else if (method == "update") { // update
             for (let i = 0; i < celeb.length; i++) {
                 if (celeb[i].account == account && celeb[i].platform == platform) {
-                    celeb[i].title = title;
-                    celeb[i].url = profileURL;
-                    return await admin.firestore().collection('Users').doc(context.auth.uid).update({celeb: celeb})
-                    .then(() => {
-                        return {status: 200, message: "success"};
-                    })
-                    .catch((e) => {
+                    // transaction
+                    const YouTubeRef = admin.firestore().collection('YouTube').doc(account);
+                    const myRef = admin.firestore().collection('Users').doc(context.auth.uid);
+                    try {
+                        return await admin.firestore().runTransaction(async (t) => {
+                            const YouTubeDoc = await t.get(YouTubeRef);
+                            const myDoc = await t.get(myRef);
+
+                            t.update(YouTubeRef, {title: title, url: profileURL});
+
+                            celeb[i].title = title;
+                            celeb[i].url = profileURL;
+                            t.update(myRef, {celeb: celeb});
+                        })
+                        .then(() => {
+                            console.log('Transaction success!');
+                            return {status: 200, message: "success"};
+                        })
+                        .catch((e) => {
+                            console.log('Transaction failure:', e);
+                            return {status: 400, message: e};
+                        });
+                    } catch (e) {
+                        console.log('Transaction failure:', e);
                         return {status: 400, message: e};
-                    });
+                    }
                 }
             }
         } else if (method == "delete") { // delete
